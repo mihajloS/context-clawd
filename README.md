@@ -1,5 +1,7 @@
 # Context Clawd
 
+[![check](https://github.com/mihajloS/context-clawd/actions/workflows/check.yml/badge.svg)](https://github.com/mihajloS/context-clawd/actions/workflows/check.yml)
+
 A pixel Claude that sits above the prompt in Claude Code and shows how full the context window is.
 
 <p align="center">
@@ -63,6 +65,10 @@ In the desktop app, where `/plugin` does not run: click **+** next to the prompt
 
 Nothing in the context window and no API calls. The mod reads the figures Claude Code already holds from the last API response, the same ones the status line shows, every 1.5 seconds on your machine. It registers no tools, skills or commands, so it adds nothing to the system prompt.
 
+## Security
+
+Context Clawd reads the context usage and draws the band, nothing more. It never sees your prompts, replies or files, and it makes no network calls. [SECURITY.md](SECURITY.md) lists every hook and call the mod makes and shows how to check them yourself in a minute; CI checks that list against the code on every push.
+
 ## Where it draws
 
 The animated band draws in the Code tab of the Claude desktop app. In a terminal session the band is one line of text:
@@ -84,10 +90,12 @@ Context Clawd is built on Claude Code's function-hooks plugin API, which is in e
 | `hooks/pixels.ts` | Level colors and the SMIL frame helpers both sets draw with |
 | `hooks/art.ts` | The thresholds, the list of sets and the segmented bar |
 | `assets/` | The SVGs in this README, rendered from the sets |
+| `.github/` | CI: validates the mod, checks its hooks and calls against `SECURITY.md`, runs the tests |
 
 ```bash
 claude plugin validate .
 claude plugin test .
+.github/scripts/check-surface.sh
 ```
 
 To add a set, write a file that exports a `SpriteSet`, add it to `SETS` and `SET_ORDER` in `hooks/art.ts`, and add its id to `ClawdSetId` in `types/index.d.ts`.

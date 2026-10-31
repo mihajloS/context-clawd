@@ -1,0 +1,28 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC: 1
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install Claude Code
+        run: npm install --global --no-audit --no-fund @anthropic-ai/claude-code@2.1.309
+
+      - name: Validate, and check hooks and calls against SECURITY.md
+        run: .github/scripts/check-surface.sh
+
+      - name: Test
+        run: claude plugin test .
