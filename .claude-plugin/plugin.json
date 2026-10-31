@@ -1,0 +1,9 @@
+{
+  "name": "context-clawd",
+  "version": "0.1.0",
+  "description": "A pixel Claude above the prompt that shows how full the context window is",
+  "author": { "name": "Mihajlo Supic" },
+  "repository": "https://github.com/mihajloS/context-clawd",
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "context-clawd",
+  "owner": { "name": "Mihajlo Supic" },
+  "description": "Context Clawd, a pixel Claude that shows how full the context window is",
+  "plugins": [{ "name": "context-clawd", "source": "./" }]
+}
